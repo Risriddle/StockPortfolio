@@ -49,15 +49,7 @@ export async function GET() {
           // Fetch historical data based on addedDate
           const historicalData = await getStockHistory(stock.symbol);
 
-          if (historicalData.error && historicalData.error.includes("API call limit")) {
-            return {
-              symbol: stock.symbol,
-              initialPrice: stock.price,
-              addedDate: stock.addedDate,
-              error: "API call limit reached for historical data.",
-              totalReturn: 0,
-            };
-          }
+         
 
           // Assuming historicalData is an array and contains a 'close' price for the latest date
           const closePrice = historicalData.close;
