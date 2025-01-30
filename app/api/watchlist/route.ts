@@ -52,7 +52,7 @@ export async function GET() {
         try {
           // Fetch historical data based on addedDate
           const historicalData = await getStockHistory(stock.symbol);
-
+          console.log(historicalData,"historical data in watchlist route")
           if ('error' in historicalData) {
             return {
               symbol: stock.symbol,
@@ -64,7 +64,7 @@ export async function GET() {
 
         else{
           const closePrice = historicalData.data.close;
-        
+        console.log(closePrice,"closePrice-------------------------")
 
           if (!closePrice) {
             return {

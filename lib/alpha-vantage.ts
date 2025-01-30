@@ -71,43 +71,6 @@ export async function getStockQuote(symbol: string) {
 }
 
 
-//   export async function getStockHistory(symbol: string){
-//     try {
-//     const response = await fetch(
-//       `${BASE_URL}?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${API_KEY}`
-//     );
-//     const data = await response.json();
-
-//     if (data.Information?.includes("Thank you for using Alpha Vantage")) {
-//       return { error: "API call limit reached. Please try again later." };
-//     }
-
-//     if (!data["Time Series (Daily)"]) {
-//       return { error: "Stock history not found!." };
-//     }
-
-//     const historicalData = Object.entries(data["Time Series (Daily)"] as Record<string, Record<string, string>>)
-//       .map(([date, values]) => ({
-//         date,
-//         open: parseFloat(values["1. open"]),
-//         high: parseFloat(values["2. high"]),
-//         low: parseFloat(values["3. low"]),
-//         close: parseFloat(values["4. close"]),
-//       }));
-
-//     console.log(historicalData, "historical data in alphaaaa");
-
-//     return  historicalData[0] ; 
-    
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       console.error("Error fetching stock history:", error);
-//       return { error: error.message || "Failed to fetch historical stock quote." };
-//     }
-//     return { error: "An unknown error occurred." };
-//   }
-// }
-
 
 
 // Define the return type for the getStockHistory function
@@ -139,7 +102,7 @@ export async function getStockHistory(symbol: string): Promise<StockHistoryRespo
         close: parseFloat(values["4. close"]),
       }));
 
-    console.log(historicalData, "historical data in alphaaaa");
+    // console.log(historicalData, "historical data in alphaaaa");
 
     // Return the latest stock data
     return { data: historicalData[0] };
