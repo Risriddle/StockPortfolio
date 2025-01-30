@@ -8,7 +8,7 @@ if (!MONGODB_URI) {
 
 // Extend the NodeJS global type to include mongoose caching
 declare global {
-  var mongoose: {
+  const mongoose: {
     conn: mongoose.Connection | null;
     promise: Promise<mongoose.Connection> | null;
   };
