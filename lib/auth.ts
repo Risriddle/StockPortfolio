@@ -25,7 +25,7 @@ export async function signUp(formData: { email: string; password: string }) {
   // Hash the password using argon2
   const hashedPassword = await argon2.hash(password);
 
-  const newUser = await User.create({ email, password: hashedPassword });
+   await User.create({ email, password: hashedPassword });
 
   return { success: true };
 }

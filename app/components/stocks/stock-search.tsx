@@ -11,10 +11,18 @@ import { searchStocks } from "@/lib/alpha-vantage";
 import { useDebounce } from "use-debounce";
 import { useToast } from "@/hooks/use-toast";
 
+interface Stock {
+  symbol: string;
+  name: string;
+  type:string;
+  region: string;
+ 
+}
+
 export default function StockSearch({ onStockAdded }: { onStockAdded: () => void }) {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 500);
-  const [stocks, setStocks] = useState<any[]>([]);
+  const [stocks, setStocks] = useState<Stock[]>([]); 
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdding, setIsAdding] = useState(false);

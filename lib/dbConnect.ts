@@ -6,16 +6,26 @@ if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-let cached = (global as any).mongoose || { conn: null, promise: null };
+// Extend the NodeJS global type to include mongoose caching
+declare global {
+  var mongoose: {
+    conn: mongoose.Connection | null;
+    promise: Promise<mongoose.Connection> | null;
+  };
+}
+
+// Use globalThis to ensure compatibility
+const cached = globalThis.mongoose || (globalThis.mongoose = { conn: null, promise: null });
 
 export async function dbConnect() {
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI, {
-    
-      bufferCommands: true  
-    }).then((mongoose) => mongoose);
+    cached.promise = mongoose
+      .connect(MONGODB_URI, {
+        bufferCommands: true,
+      })
+      .then((mongoose) => mongoose.connection);
   }
 
   cached.conn = await cached.promise;

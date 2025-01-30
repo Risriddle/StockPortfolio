@@ -5,7 +5,15 @@ import { dbConnect } from "@/lib/dbConnect";
 import { getStockQuote,getStockHistory } from "@/lib/alpha-vantage"
 import { NextResponse } from "next/server"
 
-export async function GET(request: Request) {
+interface Stock{
+  symbol:string;
+  name:string;
+  addedDate:Date;
+  initialPrice:number;
+  changePercent:number;
+}
+
+export async function GET() {
   try {
     await dbConnect();
 
@@ -36,7 +44,7 @@ export async function GET(request: Request) {
 
     // Get real-time data for each stock
     const stocksWithQuotes = await Promise.all(
-      watchlist.stocks.map(async (stock: any) => {
+      watchlist.stocks.map(async (stock: Stock) => {
         try {
           // Fetch historical data based on addedDate
           const historicalData = await getStockHistory(stock.symbol);
@@ -75,9 +83,9 @@ export async function GET(request: Request) {
             changePercent:stock.changePercent,
             totalReturn: totalReturn,
           };
-        } catch (error: any) {
+        } catch (error) {
           // If there's an error while calling getStockHistory or getStockQuote
-          if (error.message.includes("API call limit reached")) {
+          if (error instanceof Error && error.message.includes("API call limit reached")) {
             return {
               symbol: stock.symbol,
               addedDate: stock.addedDate,
@@ -153,7 +161,7 @@ export async function POST(request: Request) {
     }
 
     // Check if stock already exists in watchlist
-    const stockExists = watchlist.stocks.some((stock: any) => stock.symbol === symbol)
+    const stockExists = watchlist.stocks.some((stock: Stock) => stock.symbol === symbol)
 
     if (stockExists) {
       return NextResponse.json({ error: "Stock already in watchlist" }, { status: 400 })
@@ -215,7 +223,7 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "Watchlist not found" }, { status: 404 })
     }
 
-    watchlist.stocks = watchlist.stocks.filter((stock: any) => stock.symbol !== symbol)
+    watchlist.stocks = watchlist.stocks.filter((stock: Stock) => stock.symbol !== symbol)
     await watchlist.save()
 
     return NextResponse.json({ success: true })
