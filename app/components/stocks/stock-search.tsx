@@ -76,6 +76,10 @@ export default function StockSearch({ onStockAdded }: { onStockAdded: () => void
     try {
       for (const symbol of selectedStocks) {
         const stock = stocks.find((s) => s.symbol === symbol);
+        if (!stock) {
+          console.error(`Stock with symbol ${symbol} not found`);
+          continue; // Skip this iteration if stock is not found
+        }
         const response = await fetch("/api/watchlist", {
           method: "POST",
           headers: {

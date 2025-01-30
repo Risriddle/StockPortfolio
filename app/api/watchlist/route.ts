@@ -11,7 +11,11 @@ interface Stock{
   addedDate:Date;
   initialPrice:number;
   changePercent:number;
+
 }
+
+
+
 
 export async function GET() {
   try {
@@ -49,10 +53,18 @@ export async function GET() {
           // Fetch historical data based on addedDate
           const historicalData = await getStockHistory(stock.symbol);
 
-         
+          if ('error' in historicalData) {
+            return {
+              symbol: stock.symbol,
+              addedDate: stock.addedDate,
+              error: Error, // Return the error message from the API
+              totalReturn: 0,
+            };
+          }
 
-          // Assuming historicalData is an array and contains a 'close' price for the latest date
-          const closePrice = historicalData.close;
+        else{
+          const closePrice = historicalData.data.close;
+        
 
           if (!closePrice) {
             return {
@@ -74,7 +86,7 @@ export async function GET() {
             price: stock.initialPrice,
             changePercent:stock.changePercent,
             totalReturn: totalReturn,
-          };
+          };}
         } catch (error) {
           // If there's an error while calling getStockHistory or getStockQuote
           if (error instanceof Error && error.message.includes("API call limit reached")) {
