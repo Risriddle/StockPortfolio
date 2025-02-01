@@ -347,7 +347,7 @@ const Watchlist = forwardRef<WatchlistRef>((_, ref) => {
                   <div className="text-sm text-muted-foreground">{stock.sector}</div> */}
                 </div>
               </TableCell>
-              <TableCell>$${stock.price.toFixed(2)}</TableCell>
+              <TableCell>${stock.price.toFixed(2)}</TableCell>
               <TableCell>
                 <div className={`text-xs ${stock.totalReturn >= 0 ? "text-green-600" : "text-red-600"}`}>
                   {/* <ArrowUpIcon className="h-4 w-4" /> */}

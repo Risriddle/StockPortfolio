@@ -167,9 +167,9 @@ export function Navbar() {
                 <Link href="/dashboard">
                   <Button size="sm">Dashboard</Button>
                 </Link>
-                <Link href="/watchlist">
+                {/* <Link href="/watchlist">
                   <Button size="sm">Watchlist Recommender</Button>
-                </Link>
+                </Link> */}
               </div>
             )}
           </div>
@@ -209,11 +209,11 @@ export function Navbar() {
                       Dashboard
                     </Button>
                   </Link>
-                  <Link href="/watchlistRecommender" className="block">
+                  {/* <Link href="/watchlistRecommender" className="block">
                     <Button className="w-full" size="sm">
                       Watchlist Recommender
                     </Button>
-                  </Link>
+                  </Link> */}
                 </div>
               )}
             </div>
