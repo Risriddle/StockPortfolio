@@ -374,5 +374,5 @@ const Watchlist = forwardRef<WatchlistRef>((_, ref) => {
     </div>
   )
 })
-
+Watchlist.displayName = "Watchlist"
 export default Watchlist

@@ -5,11 +5,11 @@ import { useRef } from "react"
 import StockSearch from "../components/stocks/stock-search"
 import Watchlist, { type WatchlistRef } from "../components/stocks/watchlist"
 import { ErrorBoundary } from "../components/error-boundary"
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 
 export default function DashboardPage() {
   const watchlistRef = useRef<WatchlistRef>(null)
-const router = useRouter()
+
 
   // const handleRecommend=()=>{
   //   router.push("/analysis")
