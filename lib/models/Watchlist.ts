@@ -34,7 +34,7 @@ const WatchlistSchema = new mongoose.Schema(
     timestamps: true,
   },
 )
-
+WatchlistSchema.index({ userId: 1, symbol: 1 }, { unique: true })
 export const Watchlist = mongoose.models.Watchlist || mongoose.model("Watchlist", WatchlistSchema)
 
 

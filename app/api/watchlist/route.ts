@@ -14,9 +14,6 @@ interface Stock{
 
 }
 
-
-
-
 export async function GET() {
   try {
     await dbConnect();
@@ -82,6 +79,7 @@ export async function GET() {
           // Return the stock data with the quote, added date, initial price, and total return
           return {
             symbol: stock.symbol,
+            name:stock.name,
             addedDate: stock.addedDate,
             price: stock.initialPrice,
             changePercent:stock.changePercent,

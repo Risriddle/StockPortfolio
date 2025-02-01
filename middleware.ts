@@ -29,10 +29,14 @@ export async function middleware(request: NextRequest) {
   if (isAuthenticated && isAuthPage) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
+  // if (isAuthenticated && isAuthPage) {
+  //   return NextResponse.redirect(new URL("/watchlist", request.url));
+  // }
+
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/signin", "/signup"],
+  matcher: ["/dashboard/:path*","/watchlist/:path*", "/signin", "/signup"],
 };
